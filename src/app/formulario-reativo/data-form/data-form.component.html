@@ -1,0 +1,91 @@
+<div class="container-fluid  mt-5">
+  <div>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="row">
+      <div class="form-group col-6">
+        <label for="exampleInputEmail1">Nome</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+               placeholder="Seu nome"
+               formControlName="nome" [ngClass]="aplicaCssErro('nome')">
+        <div class="alert-danger" *ngIf="!formulario.get('nome').valid&&formulario.get('nome').touched">
+          deve preencher o nome
+        </div>
+      </div>
+      <div class="form-group col-6 ">
+        <label for="exampleInputPassword1">Email</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Email"
+               formControlName="email" [ngClass]="aplicaCssErro('email')">
+        <div class="alert-danger" *ngIf="formulario.get('email').errors&&formulario.get('email').touched">
+          <div *ngIf="formulario.get('email').errors['required']">
+            deve preencher o email
+          </div>
+          <div *ngIf="formulario.get('email').errors['email']">
+            formato de email invalido
+          </div>
+        </div>
+      </div>
+
+      <div formGroupName="endereco" class="row container">
+
+        <div class="form-group col-sm">
+          <div>
+            <label for="cep" class="control-label">CEP</label>
+            <input type="text" class="form-control" id="cep" formControlName="cep"
+                   [ngClass]="aplicaCssErro('endereco.cep')" (blur)="consultaCEP()">
+          </div>
+
+          <div >
+            <label for="numero" class="control-label">Número</label>
+            <input type="text" class="form-control" id="numero" formControlName="numero"
+                   [ngClass]="aplicaCssErro('endereco.numero')">
+          </div>
+
+          <div >
+            <label for="complemento" class="control-label">Complemento</label>
+            <input type="text" class="form-control" id="complemento" formControlName="complemento">
+          </div>
+        </div>
+
+        <div class="form-group col-sm">
+          <div>
+            <label for="rua" class="control-label">Rua</label>
+          </div>
+          <div>
+            <input type="text" class="form-control" id="rua" formControlName="rua"
+                   [ngClass]="aplicaCssErro('endereco.rua')">
+          </div>
+        </div>
+
+        <div class="form-group col-sm">
+          <div>
+            <label for="bairro" class="control-label">Bairro</label>
+            <input type="text" class="form-control" id="bairro" formControlName="bairro"
+                   [ngClass]="aplicaCssErro('endereco.bairro')">
+          </div>
+
+          <div>
+            <label for="cidade" class="control-label">Cidade</label>
+            <select class="form-control" id="cidade" formControlName="cidade"
+                    [ngClass]="aplicaCssErro('endereco.cidade')">
+              <option></option>
+            </select>
+          </div>
+
+
+          <div>
+            <label for="estado" class="control-label">Estado</label>
+            <select class="form-control" id="estado" formControlName="estado"
+                    [ngClass]="aplicaCssErro('endereco.estado')">
+              <option></option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+        <div class="col-6">
+          <button type="submit" class="btn btn-primary ">Enviar</button>
+          <button class="btn" (click)="resetar()">Cancelar</button>
+        </div>
+
+    </form>
+  </div>
+</div>
